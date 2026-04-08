@@ -5,7 +5,7 @@
 <h1 align="center">FonteOS</h1>
 
 <p align="center">
-  <strong>A strategy and execution layer for solo founders and small teams using Claude Code.</strong>
+  <strong>Give Claude Code a brain it keeps between sessions.</strong>
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 
 ---
 
-FonteOS gives Claude Code **persistent memory**, **project isolation**, and **session continuity**. It's a vault structure + behavioral rules — no server, no database, no build step. Clone it, open it, `/start`.
+FonteOS makes Claude Code remember your projects, priorities, and decisions across sessions. It's markdown files in a folder — no server, no database, no build step. Clone it, open it, `/start`.
 
 > *"Fonte" is Portuguese for spring — the source where streams begin.*
 
@@ -27,7 +27,7 @@ FonteOS gives Claude Code **persistent memory**, **project isolation**, and **se
 
 ## The problem
 
-Every Claude Code session starts from zero. You re-explain your context, lose decisions between conversations, burn tokens re-loading what should already be there, and watch projects bleed into each other with no isolation. There's no structure connecting **what to build** to **what to do next**.
+Every Claude Code session starts from scratch. You spend the first 10 minutes re-explaining who you are, what you're building, and what happened last time. Projects bleed into each other. Decisions get lost. There's nothing connecting your strategy to your daily work.
 
 FonteOS fixes this with two files and six folders.
 
@@ -70,7 +70,7 @@ FonteOS fixes this with two files and six folders.
  /end  → summarize, upstream insights, save state for next session
 ```
 
-**Token-efficient by design.** ~5k tokens of loaded context, not your entire life. MCP integrations pull live data on demand — external data stays external until needed.
+**Claude loads about 5k tokens per session.** Not your entire vault — just the files relevant to what you're working on right now. MCP integrations pull external data when you ask for it, not at startup.
 
 ---
 
