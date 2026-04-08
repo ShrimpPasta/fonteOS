@@ -152,22 +152,7 @@ section { padding: var(--section-gap) 0; }
 .philosophy-text h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 12px; color: var(--text); margin-top: 36px; }
 .philosophy-text h3:first-child { margin-top: 0; }
 .philosophy-text p { font-size: 14px; color: var(--text-dim); line-height: 1.75; }
-.layer-diagram { display: flex; flex-direction: column; gap: 2px; position: sticky; top: 100px; }
-.layer-block { padding: 24px 28px; border-radius: 8px; }
-.layer-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
-.layer-name { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.layer-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
-.layer-strategy { background: var(--accent-surface); }
-.layer-strategy .layer-label { color: var(--accent); }
-.layer-execution { background: var(--green-surface); }
-.layer-execution .layer-label { color: var(--green); }
-.layer-divider { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
-.layer-divider span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
-.layer-divider::before, .layer-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.layer-items { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin-top: 2px; }
-.layer-item { background: var(--bg-card); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-.layer-item-name { font-size: 14px; font-weight: 500; color: var(--text); }
-.layer-item-desc { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+.layer-diagram { width: 100%; max-width: 440px; height: auto; position: sticky; top: 100px; }
 
 /* ── Architecture ── */
 .arch { border-top: 1px solid var(--border); }
@@ -200,7 +185,6 @@ section { padding: var(--section-gap) 0; }
 .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 56px; border-radius: 8px; overflow: hidden; }
 .integration-card { background: var(--bg-card); padding: 36px 32px; transition: background 0.25s; }
 .integration-card:hover { background: var(--bg-elevated); }
-.integration-card:first-child { grid-column: span 2; }
 .integration-card-name { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .integration-card-type { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
 .integration-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
@@ -219,7 +203,7 @@ section { padding: var(--section-gap) 0; }
 .quickstart .section-label { color: var(--amber); }
 .quickstart .section-title { color: var(--text); }
 .quickstart .section-desc { color: var(--text-dim); }
-.terminal { border: 1px solid #333; margin-top: 48px; overflow: hidden; border-radius: 10px; }
+.terminal { background: var(--bg-code); border: 1px solid #333; margin-top: 48px; overflow: hidden; border-radius: 10px; }
 .terminal-bar { background: #2a2a2a; border-bottom: 1px solid #333; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
 .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
 .terminal-dot:nth-child(1) { background: #ff5f57; }
@@ -271,7 +255,6 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   .adhd-grid { grid-template-columns: 1fr; }
   .cmd-groups { grid-template-columns: 1fr; gap: 40px; }
   .integration-grid { grid-template-columns: 1fr; }
-  .integration-card:first-child { grid-column: auto; }
   .not-grid { grid-template-columns: 1fr; }
   .not-item { padding: 28px 24px; }
   .quickstart { padding: 60px 0; }
@@ -321,12 +304,12 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">The problem</div>
     <h2 class="section-title reveal">You're losing hours every week<br>re-explaining yourself to Claude.</h2>
-    <p class="section-desc reveal">10 minutes per session doesn't sound like much. Three sessions a day, five days a week — that's over 12 hours a month spent on context that should already be there. And that's before you count the decisions you've lost and the projects you can't find.</p>
+    <p class="section-desc reveal">10 minutes per session, three sessions a day — that's 12+ hours a month just on context. And that's before you count the lost decisions and the projects you can't find anymore.</p>
     <div class="problem-grid">
       <div class="problem-card reveal reveal-delay-1">
         <div class="problem-number">01</div>
         <h3>"Where was I? What did we decide last time?"</h3>
-        <p>Every session starts cold. You re-explain your mission, your projects, your priorities. That decision from three sessions ago? Gone. The research Claude did yesterday? Gone. You're paying for the same context over and over.</p>
+        <p>Every session starts cold. That decision from three sessions ago? Gone. The research Claude did yesterday? Also gone. You're paying for the same context over and over.</p>
       </div>
       <div class="problem-card reveal reveal-delay-2">
         <div class="problem-number">02</div>
@@ -346,7 +329,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">How it works</div>
     <h2 class="section-title reveal">Three steps. No setup marathon.<br>You're productive in minutes.</h2>
-    <p class="section-desc reveal">It's a folder of markdown files. Clone it, run /start, and a built-in tutorial walks you through the rest. No config files to figure out. No weekend lost to setup.</p>
+    <p class="section-desc reveal">Clone it, run /start, the built-in tutorial handles the rest. No config. No weekend lost to setup.</p>
     <div class="steps">
       <div class="step reveal">
         <div class="step-num">01</div>
@@ -360,7 +343,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
         <div class="step-num">02</div>
         <div class="step-body">
           <h3>Run /start</h3>
-          <p>First time? Claude walks you through a quick tutorial — who you are, what you're building, your priorities. Takes about 5 minutes. Every session after that, /start loads your full context instantly and asks what you're working on today.</p>
+          <p>First time? A quick tutorial: who you are, what you're building, your priorities. 5 minutes. After that, /start loads everything instantly.</p>
           <span class="step-code">/start &rarr; context loaded &rarr; work begins</span>
         </div>
       </div>
@@ -368,7 +351,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
         <div class="step-num">03</div>
         <div class="step-body">
           <h3>Work &rarr; /end &rarr; pick up exactly where you left off</h3>
-          <p>When you're done, /end saves everything — decisions, progress, blockers, what to do next. Tomorrow's session reads that and starts where you stopped. Built-in commands like /audit keep your vault tidy without you thinking about it.</p>
+          <p>/end saves decisions, progress, blockers, and next steps. Tomorrow picks up where you stopped. /audit keeps the vault tidy on its own.</p>
           <span class="step-code">/end &rarr; state saved &rarr; cold start eliminated</span>
         </div>
       </div>
@@ -381,13 +364,13 @@ footer .container { display: flex; justify-content: space-between; align-items: 
     <div class="section-label reveal">Built for ADHD brains</div>
     <h2 class="section-title reveal">Your ADHD bought 12 domains<br>and shipped zero products.</h2>
     <div class="adhd-intro reveal">
-      <p>You know the pattern. You sit down to write copy, notice the font looks off, start researching typography, buy a domain for a type foundry, and two hours later you've got a Figma file for a business that will never exist. We all have a graveyard of half-built projects. FonteOS doesn't cure that — but it makes Claude call you out mid-spiral.</p>
+      <p>You sit down to write copy, notice the font looks off, start researching typography, buy a domain for a type foundry, and two hours later you've got a Figma file for a business that will never launch. We all have the graveyard. FonteOS makes Claude call you out mid-spiral.</p>
     </div>
     <div class="adhd-grid">
       <div class="adhd-card card-ships reveal">
         <span class="adhd-card-label label-ships">Output typing</span>
         <h3>Ships vs. Builds vs. Learns</h3>
-        <p>Every task gets one label. "Ships" means it goes in front of a real person. "Builds" is internal plumbing. "Learns" is research. The system watches your ratio and tells you when you've been building for three weeks without shipping anything.</p>
+        <p>"Ships" goes in front of a real person. "Builds" is plumbing. "Learns" is research. The system watches your ratio and tells you when you've been building for three weeks without shipping.</p>
         <ul>
           <li>Ship queue tracked — alerts when empty</li>
           <li>Build:ship ratio monitored across all issues</li>
@@ -436,43 +419,74 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">Philosophy</div>
     <h2 class="section-title reveal">Start with one file.<br>Add complexity only when you need it.</h2>
-    <p class="section-desc reveal">No new methodology to learn. No hours of configuration. No philosophy you have to buy into. Day one is a single file and one project. You add structure when your work actually demands it — not because the tool requires it upfront.</p>
+    <p class="section-desc reveal">No methodology to buy into. No hours of configuration. Day one is one file and one project. Structure grows with the work, not ahead of it.</p>
     <div class="philosophy-layout reveal">
       <div class="philosophy-text">
         <h3>Two layers, one system</h3>
-        <p>Everything splits into <strong>strategy</strong> (vision, priorities, knowledge) and <strong>execution</strong> (tasks, issues, status). The vault holds strategy. Your task manager holds execution. They stay in sync through /start and /end — no double entry, no drift.</p>
+        <p><strong>Strategy</strong> (vision, priorities, research) lives in the vault. <strong>Execution</strong> (tasks, status) lives in your task manager. /start and /end keep them in sync.</p>
         <h3>Vision &rarr; Project &rarr; Task</h3>
-        <p>Your north star lives in core.md. Projects (springs) break it into workable domains. Tasks live in your task manager. Claude navigates this hierarchy automatically — loading only what's relevant.</p>
+        <p>core.md holds your north star. Projects (springs) break it into domains. Claude loads only what's relevant to right now.</p>
         <h3>Kickstart in 5 minutes, grow for years</h3>
         <p>Day one you have a core.md and one project folder. Run /start and you're working. Weeks later you might have five projects, research files, and custom agents. You didn't plan that upfront — it grew because you needed it.</p>
         <h3>Easy to maintain</h3>
         <p>Everything is plain markdown. No databases, no config files, no lock-in. Monthly /audit catches orphans and drift. Weekly maintenance takes minutes.</p>
       </div>
       <div>
-        <div class="layer-diagram">
-          <div class="layer-block layer-strategy">
-            <div class="layer-label">Strategy layer — the vault</div>
-            <div class="layer-name">Where you think</div>
-            <div class="layer-desc">Mission, priorities, project context, research, decisions, knowledge. Persistent across sessions.</div>
-          </div>
-          <div class="layer-items">
-            <div class="layer-item"><span class="layer-item-name">Source</span><span class="layer-item-desc">core.md</span></div>
-            <div class="layer-item"><span class="layer-item-name">Springs</span><span class="layer-item-desc">projects</span></div>
-            <div class="layer-item"><span class="layer-item-name">Streams</span><span class="layer-item-desc">workstreams</span></div>
-            <div class="layer-item"><span class="layer-item-name">Intelligence</span><span class="layer-item-desc">research</span></div>
-          </div>
-          <div class="layer-divider"><span>syncs via /start &amp; /end</span></div>
-          <div class="layer-block layer-execution">
-            <div class="layer-label">Execution layer — your task manager</div>
-            <div class="layer-name">Where you do</div>
-            <div class="layer-desc">Issues, sprints, statuses, assignments. Linear, Asana, or none — FonteOS adapts.</div>
-          </div>
-          <div class="layer-items">
-            <div class="layer-item"><span class="layer-item-name">Projects</span><span class="layer-item-desc">mapped to springs</span></div>
-            <div class="layer-item"><span class="layer-item-name">Issues</span><span class="layer-item-desc">tasks &amp; subtasks</span></div>
-            <div class="layer-item"><span class="layer-item-name">Labels</span><span class="layer-item-desc">agent workflow</span></div>
-          </div>
-        </div>
+        <svg class="layer-diagram" viewBox="0 0 440 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FonteOS architecture: strategy layer syncs with execution layer via /start and /end">
+          <!-- Strategy layer -->
+          <rect x="0" y="0" width="440" height="220" rx="12" fill="rgba(37,99,235,0.06)" stroke="rgba(37,99,235,0.15)" stroke-width="1"/>
+          <text x="24" y="32" font-family="'SF Mono',monospace" font-size="10" letter-spacing="1.5" fill="#2563eb" text-transform="uppercase">STRATEGY LAYER — THE VAULT</text>
+          <text x="24" y="58" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#1a1a1a">Where you think</text>
+          <!-- Layer rows -->
+          <rect x="20" y="80" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="100" font-family="'SF Mono',monospace" font-size="11" fill="#2563eb">SOURCE</text>
+          <text x="130" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">core.md</text>
+          <text x="340" y="100" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">mission</text>
+
+          <rect x="20" y="114" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="134" font-family="'SF Mono',monospace" font-size="11" fill="#2563eb">SPRINGS</text>
+          <text x="130" y="134" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Projects</text>
+          <text x="326" y="134" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">ventures</text>
+
+          <rect x="20" y="148" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="168" font-family="'SF Mono',monospace" font-size="11" fill="#2563eb">STREAMS</text>
+          <text x="130" y="168" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Workstreams</text>
+          <text x="314" y="168" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">daily work</text>
+
+          <rect x="20" y="182" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#2563eb">INTEL</text>
+          <text x="130" y="202" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Research</text>
+          <text x="310" y="202" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">graduated</text>
+
+          <!-- Sync arrows -->
+          <line x1="180" y1="232" x2="180" y2="288" stroke="#d4d1cc" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="260" y1="288" x2="260" y2="232" stroke="#d4d1cc" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <polygon points="177,288 183,288 180,294" fill="#a8a29e"/>
+          <polygon points="257,232 263,232 260,226" fill="#a8a29e"/>
+          <text x="190" y="266" font-family="'SF Mono',monospace" font-size="10" letter-spacing="0.5" fill="#a8a29e">/start</text>
+          <text x="268" y="266" font-family="'SF Mono',monospace" font-size="10" letter-spacing="0.5" fill="#a8a29e">/end</text>
+
+          <!-- Execution layer -->
+          <rect x="0" y="300" width="440" height="180" rx="12" fill="rgba(22,163,74,0.06)" stroke="rgba(22,163,74,0.15)" stroke-width="1"/>
+          <text x="24" y="332" font-family="'SF Mono',monospace" font-size="10" letter-spacing="1.5" fill="#16a34a" text-transform="uppercase">EXECUTION LAYER — TASK MANAGER</text>
+          <text x="24" y="358" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#1a1a1a">Where you do</text>
+
+          <rect x="20" y="376" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="396" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Projects</text>
+          <text x="280" y="396" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">mapped to springs</text>
+
+          <rect x="20" y="410" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="430" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Issues</text>
+          <text x="300" y="430" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">tasks &amp; subtasks</text>
+
+          <rect x="20" y="444" width="400" height="30" rx="4" fill="#fff" stroke="#e8e6e3" stroke-width="1"/>
+          <text x="36" y="464" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#1a1a1a">Labels</text>
+          <text x="296" y="464" font-family="'SF Mono',monospace" font-size="10" fill="#a8a29e">agent workflow</text>
+
+          <!-- Optional badge -->
+          <rect x="300" y="340" width="120" height="24" rx="4" fill="rgba(22,163,74,0.08)"/>
+          <text x="316" y="356" font-family="'SF Mono',monospace" font-size="10" fill="#16a34a">Linear / Asana</text>
+        </svg>
       </div>
     </div>
   </div>
@@ -482,7 +496,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">Architecture</div>
     <h2 class="section-title reveal">It knows your project<br>better than you do.</h2>
-    <p class="section-desc reveal">Claude loads only the files relevant to what you're working on right now. Per-project context, not everything you've ever written. This keeps the context window tight — which means better output quality, not just faster loads.</p>
+    <p class="section-desc reveal">Per-project context, not your whole vault. Tight context window = better output. Claude loads what matters and skips the rest.</p>
     <div class="arch-layout reveal">
       <div class="arch-layers">
         <div class="arch-layer"><span class="arch-layer-tag">Source</span><span class="arch-layer-name">core.md</span><span class="arch-layer-desc">mission + priorities</span></div>
@@ -495,7 +509,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
       <div class="arch-right">
         <div class="arch-stat-block">
           <div class="arch-stat-value">~5k</div>
-          <div class="arch-stat-label"><strong>tokens loaded per session.</strong> Claude knows exactly where everything is — your mission, your projects, your research. It doesn't rummage through your whole vault. It loads the right files for the right project. Less noise, better answers.</div>
+          <div class="arch-stat-label"><strong>tokens loaded per session.</strong> Claude knows where everything is. Right files, right project, nothing extra. Less noise means better answers.</div>
         </div>
         <div class="arch-note">No vectors, no embeddings, no database. Just a hierarchy of markdown files that Claude navigates automatically. You stop juggling context — it handles that.</div>
       </div>
@@ -507,7 +521,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">Commands &amp; skills</div>
     <h2 class="section-title reveal">Type a command. Or let<br>the system call it for you.</h2>
-    <p class="section-desc reveal">Commands automate the stuff you'd do every session anyway. Skills handle specialized work — and the system knows when to use them. You can also summon anything manually with a slash.</p>
+    <p class="section-desc reveal">Commands automate what you'd do every session. Skills handle specialized work. The system knows when to use them — or you just type a slash.</p>
     <div class="cmd-groups reveal">
       <div class="cmd-group">
         <div class="cmd-group-title">Session commands</div>
@@ -540,7 +554,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">Integrations</div>
     <h2 class="section-title reveal">Built for integrations.<br>Runs fine without them.</h2>
-    <p class="section-desc reveal">FonteOS works standalone from day one. When you're ready to connect a task manager or research tool, the system walks you through the setup. Each integration is optional and takes minutes.</p>
+    <p class="section-desc reveal">Works standalone from day one. When you want to add something, the system guides the setup. Each one takes minutes.</p>
     <div class="integration-grid reveal">
       <div class="integration-card"><div class="integration-card-name">Linear</div><div class="integration-card-type">Task management</div><p>Two-way sync. Claude reads Todo issues, moves to In Progress on pickup, posts structured comments, proposes status changes. Projects map 1:1 to springs.</p><span class="ready">&check; MCP ready</span></div>
       <div class="integration-card"><div class="integration-card-name">Asana</div><div class="integration-card-type">Task management</div><p>Same workflow, different tool. First-run setup asks which task manager you use — or none.</p><span class="ready">&check; MCP ready</span></div>
@@ -572,7 +586,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
   <div class="container">
     <div class="section-label reveal">Quickstart</div>
     <h2 class="section-title reveal">Clone it. Start it.<br>The tutorial does the rest.</h2>
-    <p class="section-desc reveal">First /start detects you're new and walks you through setup — who you are, what you're building, which tools to connect. Takes about 5 minutes. Every session after that loads your world instantly.</p>
+    <p class="section-desc reveal">First /start detects you're new and runs the tutorial. 5 minutes. Every session after loads instantly.</p>
     <div class="terminal reveal">
       <div class="terminal-bar"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div><span class="terminal-label">zsh</span></div>
       <div class="terminal-body">
