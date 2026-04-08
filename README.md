@@ -239,6 +239,7 @@ See [docs/mcp-integrations.md](docs/mcp-integrations.md) for setup.
 | [Getting Started](docs/getting-started.md) | Full setup walkthrough |
 | [Core Concepts](docs/concepts.md) | Springs, streams, intelligence, upstream |
 | [Session Lifecycle](docs/session-lifecycle.md) | `/start` → work → `/end` in detail |
+| [Settings & Configuration](docs/settings.md) | Hooks, permissions, user-level vs project-level |
 | [Customization](docs/customization.md) | Making it yours |
 | [MCP Integrations](docs/mcp-integrations.md) | Connecting external tools |
 | [Voice Profiles](docs/voice-profiles.md) | Teaching Claude your writing style |

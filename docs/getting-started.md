@@ -101,7 +101,7 @@ Claude runs the close protocol:
 
 ```
 my-vault/
-├── CLAUDE.md                          ← Behavioral rules (don't edit without knowing what you're doing)
+├── CLAUDE.md                          ← Behavioral rules (protected by settings.json)
 ├── source/
 │   ├── core.md                        ← Your mission, priorities, spring registry (populated)
 │   ├── session-state.md               ← Last session summary (written at /end)
@@ -118,9 +118,13 @@ my-vault/
 ├── logs/
 │   └── daily/                         ← Daily cycle reports (auto-cleaned after 7 days)
 └── .claude/
+    ├── settings.json                  ← Project-level settings (hooks + file protection)
+    ├── hooks/
+    │   ├── pre-session-snapshot.sh    ← Git safety net before each session
+    │   └── validate-wikilinks.sh      ← Graph integrity check on every write
     └── commands/
-        ├── start.md                   ← Session open
-        ├── end.md                     ← Session close + drift check
+        ├── start.md                   ← Session open + deliverable protocol
+        ├── end.md                     ← Session close + drift check + verification
         ├── audit.md                   ← Monthly maintenance + pattern health
         ├── note.md                    ← Quick note creation
         ├── cycle.md                   ← Daily agent cycle (automated)
