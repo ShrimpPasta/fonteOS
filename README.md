@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://fonteos.com/og-image.png" alt="FonteOS" width="600">
+  <img src="landing/og-image.png" alt="FonteOS" width="720">
 </p>
 
 <h1 align="center">FonteOS</h1>
@@ -169,10 +169,13 @@ FonteOS was built by someone with ADHD, for people who work like that. Every ses
 
 | Command | What it does |
 |---------|-------------|
-| `/start` | Load context, suggest work, scope to a project |
-| `/end` | Summarize session, upstream or dispose, save state |
-| `/audit` | Monthly maintenance — orphans, stale streams, drift |
+| `/start` | Load context, suggest work, declare deliverable, scope to a project |
+| `/end` | Summarize, drift check, verify, upstream or dispose, save state |
+| `/audit` | Monthly maintenance — orphans, stale streams, pattern health, drift |
 | `/note` | Create a new note with structure and wikilinks |
+| `/cycle` | Daily agent cycle — scan issues, classify, execute, report |
+| `/patterns` | Quick pattern health check — ship queue, ratios, streaks |
+| `/review` | Two-stage quality review — gap analysis then counter-review |
 
 ### Skills (extensible)
 

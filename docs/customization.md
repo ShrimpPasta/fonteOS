@@ -1,6 +1,6 @@
 # Customization
 
-How to adapt FonteOS to your actual work. Adding springs, creating streams, building intelligence, writing slash commands, defining agents.
+How to adapt FonteOS to your actual work. Adding springs, creating streams, building intelligence, writing slash commands, defining agents, and extending with skills.
 
 ---
 
@@ -109,7 +109,9 @@ You can also create streams via `/note` — Claude will prompt you for the detai
 
 ## Building intelligence files
 
-Intelligence files live in `intelligence/`. They're reference knowledge — slower-changing than streams, higher confidence, loaded on demand.
+Intelligence files live in `intelligence/` (global) by default. They're reference knowledge — slower-changing than streams, higher confidence, loaded on demand.
+
+**Per-spring intelligence (advanced):** For larger vaults, you can organize intelligence per-spring at `springs/[name]/intel/`. This keeps project-specific research close to the project. Update CLAUDE.md's vault navigation table if you use this pattern.
 
 Create an intelligence file when:
 - A stream insight has recurred 3+ times (graduate protocol)
@@ -166,10 +168,10 @@ Add every new intelligence file to the intelligence registry in `core.md`. Also 
 
 Slash commands live in `.claude/commands/` as markdown files. Each filename becomes a `/command` you can trigger in any session. The file content is the prompt Claude follows when you trigger it.
 
+FonteOS ships with 7 commands (`start`, `end`, `audit`, `note`, `cycle`, `patterns`, `review`). Add your own for repetitive workflows.
+
 **Basic command structure:**
 ```markdown
-# Command Name
-
 Brief description of what this command does.
 
 ## Steps
@@ -181,7 +183,7 @@ Brief description of what this command does.
 Use $ARGUMENTS for user input passed after the command name.
 ```
 
-**Research command** — wraps a research MCP with structured output:
+**Research command example:**
 ```markdown
 Deep research on the topic provided by the user.
 
@@ -195,12 +197,9 @@ Steps:
    - Sources — URLs with brief descriptions
    - Confidence — assess source quality (high/medium/low/speculative)
 3. Ask: "Save as intelligence file, drop in inbox, or just use it here?"
-   - If intelligence: create the file with proper frontmatter and wikilinks
-   - If inbox: drop a brief summary in inbox/
-   - If here: done
 ```
 
-**Video extraction command:**
+**Video extraction command example:**
 ```markdown
 Analyze a YouTube video using Gemini.
 
@@ -208,43 +207,40 @@ URL: $ARGUMENTS
 
 Steps:
 1. Extract video content using the Gemini MCP.
-2. Present:
-   - Title and creator
-   - Summary — 3-5 sentences
-   - Key points with approximate timestamps
-   - Notable quotes worth saving
-   - Credibility notes — distinguish research, opinion, anecdote, speculation
+2. Present: title, summary, key points with timestamps, notable quotes.
 3. Ask: "Save as intelligence file, drop in inbox, or just use it here?"
 ```
 
-**Quick capture command** (for ideas that don't need a full note):
-```markdown
-Capture a quick idea without ceremony.
+Place command files in `.claude/commands/`. They're available immediately — no restart needed.
 
-Idea: $ARGUMENTS
+---
 
-1. Write a brief note to inbox/ with:
-   - Date
-   - The idea as stated
-   - One sentence on why it might matter
-   - Tag it: #idea #triage
-2. Confirm: "Dropped in inbox."
-```
+## Skills (global extensions)
 
-Place all command files in `.claude/commands/`. They're available immediately — no restart needed.
+Skills are reusable prompt files that live in `~/.claude/skills/` (global, available across all vaults). They differ from slash commands: commands are vault-specific workflows, skills are portable capabilities.
+
+**Useful skill categories:**
+
+| Category | Examples |
+|----------|----------|
+| **Design** | `d-polish` (final quality pass), `d-critique` (UX evaluation), `d-animate` (motion design), `d-audit` (a11y + perf check) |
+| **Content** | `humanize` (remove AI patterns), `story-edit` (narrative crafting) |
+| **System** | `review` (two-stage quality check), `patterns` (health audit) |
+
+Skills are invoked with `/skill-name` just like commands. To add a skill, create a `.md` file in `~/.claude/skills/` with the prompt.
 
 ---
 
 ## Defining agents
 
-Agent files live in `agents/`. An agent is a defined AI role with specific instructions, intelligence references, and constraints. Load an agent file explicitly before delegating that type of work.
+Agent files live in `agents/`. An agent is a defined AI role with specific instructions, intelligence references, and constraints.
 
 **Agent file template:**
 ```markdown
 ---
 type: agent
 role: [role name]
-model: [sonnet / opus / gemini / etc.]
+model: [sonnet / opus]
 tags: [agent, role-name]
 updated: YYYY-MM-DD
 ---
@@ -270,10 +266,6 @@ Specific triggers — what type of request should use this agent.
 
 Detailed behavioral rules for this agent role.
 
-1. Rule one
-2. Rule two
-3. Rule three
-
 ## Output format
 
 What this agent should produce. Structure, length, format.
@@ -284,51 +276,10 @@ What this agent should produce. Structure, length, format.
 - Boundaries
 ```
 
-**Example: content agent**
-```markdown
----
-type: agent
-role: content
-model: claude-sonnet-4-5
-tags: [agent, content]
-updated: 2026-03-30
----
-
-# Content Agent
-
-> Connected to: [[core]], [[intelligence/voice]]
-
-## Role
-
-Draft content (posts, essays, scripts) in the operator's voice.
-
-## When to load this agent
-
-When drafting anything intended for public-facing channels.
-
-## Intelligence to load
-
-- [[intelligence/voice]] — voice profile, always load first
-- [[intelligence/audience]] — who we're writing for
-
-## Instructions
-
-1. Load intelligence/voice.md before writing anything.
-2. Match the voice profile exactly — tone, rhythm, sentence length.
-3. Propose, don't publish. All content drafts require human approval.
-4. Flag if the brief conflicts with voice principles.
-5. Write a first draft, then apply /humanize before presenting.
-
-## Output format
-
-First draft in full. Then brief notes on where you made judgment calls.
-
-## Constraints
-
-- Never soften positions to avoid controversy
-- No hedging language ("it could be argued that...")
-- Never write superlatives without evidence
-```
+**Dual-brain model (recommended for complex vaults):**
+- **Orchestrator agent** (Opus) — strategy, deep analysis, cross-spring thinking
+- **Operations agent** (Sonnet) — file management, routine updates, maintenance
+- **Subagents** — delegate research reading 3+ files to subagents to protect main context
 
 ---
 
@@ -338,12 +289,14 @@ CLAUDE.md is the behavioral foundation. Modify it deliberately — it affects ev
 
 The main things you'd customize:
 
-**Session startup** — add steps, change the order, modify what gets loaded first.
+**Non-negotiable rules** — adjust the three rules at the top based on your workflow. The cost gate on Perplexity/Gemini can be loosened if you're on unlimited plans.
 
-**Standing rules** — add project-specific conventions, change the graduate threshold (default: 3 recurrences), adjust orphan audit frequency.
+**Permission tiers** — add services or integrations to the Tier 1/2/3 lists.
 
-**Write permissions** — add services or integrations to the autonomous/propose/never tiers.
+**Pattern monitoring** — customize the patterns in `source/pattern-reference.md` to match your actual avoidance patterns. The five defaults are common among founders but may not all apply to you.
 
-**Vault navigation** — update the path table if you rename folders.
+**Session deliverables** — if the ships/builds/learns framing doesn't fit your work, adapt it.
 
-Make one change at a time. Test it in a session. Don't refactor CLAUDE.md wholesale — small, deliberate changes only.
+**Vault navigation** — update the path table if you rename folders or add per-spring intel.
+
+Make one change at a time. Test it in a session. Don't refactor CLAUDE.md wholesale — small, deliberate changes only. Aim to keep it under ~150 lines.

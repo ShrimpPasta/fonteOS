@@ -9,25 +9,35 @@ How a session starts, runs, and closes. What Claude reads, when, and why.
 When you type `/start`, Claude executes a fixed sequence:
 
 **1. Read `source/core.md`**
-Claude orients on your mission, current priorities, recent shifts, and spring registry. This is the session foundation — everything else builds on it.
+Claude orients on your mission, current priorities, recent shifts, and spring registry. This is the session foundation.
 
 **2. Read `source/session-state.md`**
 If a previous session exists, Claude surfaces it briefly:
-> "Last session: 2026-03-28, scoped to [spring]. You were working on [streams]. Next priority was: [sentence]."
+> "Last session: [date], scoped to [spring]. You were working on [streams]. Next priority was: [sentence]."
 
-If this is the first session ever, session-state.md is empty and Claude skips this step.
+**3. Read `source/pattern-reference.md`**
+Loads pattern monitoring context. Claude watches for avoidance patterns throughout the session.
 
-**3. Task manager sync (if configured)**
-If you've connected Asana or Linear via MCP, Claude pulls "Now" tasks for each project and presents a combined briefing alongside the vault stream status. This gives you two views at once: strategic direction from the vault, execution items from your task manager.
+**4. Task manager sync (optional)**
+Claude asks: "Pull task manager issues for the briefing?" If yes, it fetches "Todo"/"Now" issues and presents them alongside vault stream status. If no, it uses vault context only.
 
-**4. Declare scope**
-Claude announces which spring this session is working in and restricts writes to that path. If you have obvious next work from session-state or task manager, it suggests it. Otherwise it offers 2-3 options based on priority and recency.
+**5. Declare scope**
+Claude announces which spring this session is working in and restricts writes to that path. It suggests 2-3 options based on priority and recency.
 
-**5. You pick**
-Claude loads the relevant spring index (`[spring]_index.md`) plus the stream files you're working in. If those streams reference intelligence files, Claude reads those too.
+**6. You pick**
+Claude loads the relevant spring index (`[spring]_index.md`) plus the stream files you're working in.
 
-**6. Work begins**
-Only after all required files are loaded. Never before.
+**7. Session deliverable**
+Before work begins, Claude establishes four things:
+- **Specific deliverable** — concrete, not vague
+- **Type** — ships (market-facing), builds (internal), or learns (research)
+- **Done definition** — what does "done" look like?
+- **First 15-minute action** — the smallest step to get moving
+
+These get tracked and compared against actual output at `/end`.
+
+**8. Work begins**
+Only after all required files are loaded and the deliverable is clear.
 
 ---
 
@@ -35,15 +45,17 @@ Only after all required files are loaded. Never before.
 
 Once started, Claude operates with spring isolation. A few things that matter:
 
-**Writes stay in scope.** Claude writes freely to stream files within the declared spring. Everything else — spring indexes, intelligence files, core.md — requires your approval before changes are made.
+**Writes stay in scope.** Claude writes freely to stream files within the declared spring. Everything else requires approval.
 
-**Stray ideas go to inbox.** If something comes up that doesn't belong to the current stream or spring, Claude drops it in `inbox/` with a note rather than derailing the session.
+**Stray ideas go to inbox.** If something comes up that doesn't belong to the current stream or spring, Claude drops it in `inbox/` with a note.
 
-**Cross-spring reads are always permitted.** Claude can read files from other springs for context. Cross-spring writes require explicit approval.
+**Cross-spring reads are always permitted.** Cross-spring writes require explicit approval.
 
-**Claude makes decisions when direction is clear.** It only pauses for genuinely ambiguous choices. If you ask it to research something, it researches. If you ask it to draft, it drafts. You're not a prompt engineer — you're a collaborator.
+**Pattern monitoring is always on.** Claude watches for scope creep, dependency chains, abstraction escalation, and quality threshold creep. It flags patterns — it doesn't block them. You decide whether the expansion is intentional or avoidance.
 
-**MCP calls are on demand.** If you ask Claude to look something up via Perplexity, pull a task from Asana, or read a Figma file, it calls the MCP when you need it — not at startup.
+**Claude makes decisions when direction is clear.** It only pauses for genuinely ambiguous choices.
+
+**MCP calls are on demand.** Research, tasks, design files, documents — fetched when needed, not at startup.
 
 ---
 
@@ -51,38 +63,57 @@ Once started, Claude operates with spring isolation. A few things that matter:
 
 At the end of a session, you have two choices for each piece of work:
 
-**Upstream** — codify the output into a permanent file. This means Claude proposes specific edits to stream files (it writes directly), or proposes edits to spring indexes, intelligence files, or core.md (you approve those). The insight or decision becomes a durable artifact in the vault.
+**Upstream** — codify the output into a permanent file. Stream files Claude writes directly. Spring indexes, intelligence files, or core.md require approval. The insight becomes a durable artifact in the vault.
 
-**Dispose** — close the conversation without extracting anything. Sometimes a session is just working through something and the conversation itself is the output. Dispose is not failure — it's a legitimate choice. Not every session needs to produce a file.
+**Dispose** — close without extracting anything. Sometimes a session is just working through something and the conversation itself is the output. Dispose is not failure — it's a legitimate choice.
 
-The upstream/dispose decision happens at `/end` for each piece of work. You don't have to upstream everything. Be selective — only promote things that will matter later.
+Be selective — only promote things that will matter later.
 
 ---
 
 ## /end
 
-When you type `/end`, Claude runs the close protocol in four steps:
+When you type `/end`, Claude runs the close protocol in seven steps:
 
 **1. Session summary**
-Claude produces a concise summary:
-- **Decided:** Key decisions made this session
+- **Decided:** Key decisions made
 - **Changed:** Files updated, tasks completed
-- **Next:** Open tasks, blockers, suggested priority for next session
+- **Next:** Open tasks, blockers, suggested priority
 
-**2. Task manager sync (if configured)**
-Claude proposes updates to your task manager: complete tasks that finished, comment on tasks that progressed but aren't done. Each proposed action is presented for your approval before execution. Nothing happens without confirmation.
+**2. Scope drift check**
+Compares the declared deliverable against actual output:
+- What was declared vs. what was produced
+- Type: ships / builds / learns
+- Drift: yes/no, and whether intentional
 
-**3. Upstream or dispose**
-Claude asks for each piece of work. Stream files it can write directly; permanent files it proposes. You review proposals and approve or reject.
+This is data, not judgment. Tracked over time so patterns become visible.
 
-**4. Write session-state.md**
-Claude overwrites `source/session-state.md` with a structured summary of the session. This is the bridge to the next conversation. It happens automatically — no approval needed. Session state is operational metadata, not knowledge.
+**3. Verification check**
+Claude checks the session's work:
+- Content → voice alignment, wikilinks present
+- Vault writes → frontmatter correct, right location
+- Task manager → mutations confirmed
+- Research → confidence markers assigned
+
+Asks: "Did we verify? If not, should we before closing?" You can skip.
+
+**4. Task manager sync**
+Proposes updates: complete finished issues, comment on progressed ones. Each action presented for approval.
+
+**5. Upstream or dispose**
+For each piece of work, choose to codify or close.
+
+**6. Write session-state.md**
+Structured summary with deliverable tracking fields. Presented for approval, then written.
+
+**7. Session naming**
+Suggestion to name the session for easy resume later.
 
 ---
 
 ## Session state as the bridge
 
-`session-state.md` is always overwritten — only the most recent session matters. It contains:
+`session-state.md` contains structured session data including deliverable tracking:
 
 ```markdown
 ## Last session
@@ -94,13 +125,17 @@ Claude overwrites `source/session-state.md` with a structured summary of the ses
 - **Changed:** [files updated, tasks completed]
 - **Open tasks:** [what's left]
 - **Blockers:** [what's stuck]
+- **Deliverable declared:** [what was stated at /start]
+- **Deliverable actual:** [what was produced]
+- **Type:** ships / builds / learns
+- **Drift:** yes / no
 
 ## Next session priority
 
 [One-sentence description of where to pick up]
 ```
 
-When you start your next session, Claude reads this and picks up cold. You don't re-explain what you were working on. You don't re-establish context. The loop is: `/start`, Claude briefs you on where you left off, you confirm or redirect, work resumes.
+When you start your next session, Claude reads this and picks up cold. The loop is: `/start`, Claude briefs you, you confirm or redirect, work resumes.
 
 ---
 
@@ -108,15 +143,15 @@ When you start your next session, Claude reads this and picks up cold. You don't
 
 Each session is scoped to exactly one spring. This is a hard constraint, not a guideline.
 
-**Why it matters:** If you run two Claude Code sessions simultaneously — say, one for a product spring and one for a freelance spring — isolation prevents them from stepping on each other's files. Session A writes to `springs/product/stream/`, session B writes to `springs/freelance/stream/`. They don't collide.
+**Why it matters:** Parallel sessions on different springs can't collide. Session A writes to `springs/product/stream/`, Session B writes to `springs/freelance/stream/`. No conflicts.
 
 **What isolation means in practice:**
-- Writes are restricted to the declared spring's path
-- Cross-spring edits require you to explicitly approve a "cross-over"
-- `core.md`, `intelligence/`, and spring indexes are single-writer — only one session touches them per work block
-- Cross-spring reads are always permitted
+- Writes restricted to the declared spring's path
+- Cross-spring edits require explicit approval
+- `core.md`, `intelligence/`, and spring indexes are single-writer per work block
+- Cross-spring reads always permitted
 
-For more detail on running parallel sessions, see [advanced/multi-session.md](advanced/multi-session.md).
+For detail on parallel sessions, see [advanced/multi-session.md](advanced/multi-session.md).
 
 ---
 
@@ -124,24 +159,28 @@ For more detail on running parallel sessions, see [advanced/multi-session.md](ad
 
 ```
 /start
-  → reads core.md + session-state.md
-  → (optional) pulls task manager "Now" tasks
+  → reads core.md + session-state.md + pattern-reference.md
+  → (optional) pulls task manager issues
   → declares scope, suggests work
-  → you pick
-  → loads spring index + stream files
+  → establishes session deliverable (ships/builds/learns)
+  → you pick, loads spring index + streams
   → work begins
 
 [work]
   → Claude writes streams freely
   → proposes changes to permanent files
+  → pattern monitoring flags in real time
   → MCP calls as needed
   → inbox for strays
 
 /end
   → summarizes: decided, changed, next
+  → scope drift check (declared vs actual)
+  → verification check
   → (optional) proposes task manager updates
   → upstream or dispose
-  → writes session-state.md
+  → writes session-state.md with deliverable tracking
+  → suggests session name
 ```
 
-The loop is fast when you run it consistently. Skipping `/end` breaks session continuity — the next `/start` will surface stale state. Skipping `/start` means Claude doesn't know your context. Run both.
+The loop is fast when you run it consistently. Skipping `/end` breaks session continuity. Skipping `/start` means Claude doesn't know your context. Run both.
