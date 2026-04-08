@@ -174,4 +174,6 @@ Creates a git tag before each session. Requires `jq` for JSON parsing (pre-insta
 
 Checks for `[[wikilinks]]` in edited markdown files. Skips files that legitimately don't need links: CLAUDE.md, README.md, session-state.md, log files, docs, specs, and landing page files. Warns on stdout — Claude sees the warning and can act on it.
 
+Both scripts require **`jq`** for JSON parsing (`brew install jq` on Mac, `apt install jq` on Linux). Without `jq`, the wikilink validator falls back to an environment variable but may not fire reliably.
+
 Both scripts are designed to be non-blocking. They warn on issues but always exit 0 so they never prevent Claude from working.

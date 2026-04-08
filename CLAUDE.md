@@ -34,7 +34,7 @@ If `source/core.md` is empty or contains only the template placeholders:
 3. Ask: "Which task manager do you want to connect?" → Linear (recommended), Asana, or None (vault-only mode).
 4. Populate `core.md` with their answers.
 5. Create their first spring from priority #1 (index + stream directory).
-6. If they chose a task manager: explain the MCP setup steps.
+6. If they chose a task manager: explain the MCP setup steps and create `source/stream-mapping.yaml` from the example template (`source/stream-mapping.yaml.example`).
 7. "You're set. From now on, type `/start` at the beginning of every session."
 
 ## General behavior
@@ -87,7 +87,7 @@ NH is not a blocker on unrelated work. If an NH blocks one thread, continue on o
 | PM reference | `source/pm-reference.md` |
 | Springs | `springs/[name]/[name]_index.md` |
 | Streams | `springs/[name]/stream/[topic].md` |
-| Intelligence | `intelligence/[topic].md` |
+| Intelligence | `intelligence/[topic].md` (or `springs/[name]/intel/` for per-spring) |
 | Agents | `agents/[name].md` |
 | Inbox | `inbox/` |
 | Logs | `logs/daily/` |
@@ -116,40 +116,40 @@ NH is not a blocker on unrelated work. If an NH blocks one thread, continue on o
 
 ## Write permissions
 
-Items marked [E] are **enforced** by settings.json deny rules or hooks.
-Items marked [A] are **advisory** — followed by instruction, no technical barrier.
-**Hooks enforce:** wikilink validation on all `.md` edits, session snapshots on start.
+Most rules below are **advisory** — Claude follows them because CLAUDE.md says so.
+Rules marked **[enforced]** are technically blocked by `settings.json` deny rules or hooks.
+**Hooks:** wikilink validation on all `.md` edits, git snapshot on session start.
 
 ```
 TIER 1 — AUTONOMOUS (do it, log it)
-├── [A] Read any file in the vault
-├── [A] Write to streams, inbox, session-state
-├── [A] Read from task manager (if configured)
-├── [A] Post informational comments on tasks
-├── [A] Read from MCP integrations
-├── [A] Git add + commit
-├── [A] Move issues to "In Progress" on pickup
-└── [A] Create subtasks on existing issues
+├── Read any file in the vault
+├── Write to streams, inbox, session-state
+├── Read from task manager (if configured)
+├── Post informational comments on tasks
+├── Read from MCP integrations
+├── Git add + commit
+├── Move issues to "In Progress" on pickup
+└── Create subtasks on existing issues
 
 TIER 2 — PROPOSE (present for approval)
-├── [A] Git push
-├── [A] Modify spring indexes, intelligence, core.md
-├── [A] Complete tasks / change issue status
-├── [A] Create new issues
-├── [A] Generate content for publication
-├── [A] Write to external systems
-└── [E] Modify CLAUDE.md or settings.json (denied in settings.json)
+├── Git push
+├── Modify spring indexes, intelligence, core.md
+├── Complete tasks / change issue status
+├── Create new issues
+├── Generate content for publication
+├── Write to external systems
+└── Modify CLAUDE.md or settings.json [enforced — denied in settings.json]
 
 TIER 3 — NEVER (hard stop)
-├── [A] Delete files or issues
-├── [A] Modify git history (rebase, force push, amend)
-├── [A] Execute system commands (open, chmod, sudo)
-├── [A] Access credentials or secrets directly
-├── [A] Send emails, post to social, publish
-└── [A] Make financial transactions or paid API calls without approval
+├── Delete files or issues
+├── Modify git history (rebase, force push, amend)
+├── Execute system commands (open, chmod, sudo)
+├── Access credentials or secrets directly
+├── Send emails, post to social, publish
+└── Make financial transactions or paid API calls without approval
 ```
 
-See [docs/settings.md](docs/settings.md) for how to upgrade advisory rules to enforced rules, and how to move settings to user-level.
+Any advisory rule can be upgraded to enforced. See [docs/settings.md](docs/settings.md) for how — including how to move settings to user-level when you're ready.
 
 ## Key terminology
 

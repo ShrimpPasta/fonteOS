@@ -1,0 +1,34 @@
+# Stream Mapping Configuration
+#
+# Maps task manager projects to vault springs, context files, and agent behavior.
+# Copy this file to stream-mapping.yaml and fill in your project IDs.
+#
+# Used by: /cycle (automated), /start (briefing), /end (sync), /audit (drift check)
+
+# ── For Linear users ─────────────────────────────────────────────
+#
+# projects:
+#   my-project:
+#     id: "project-uuid"              # Linear project UUID
+#     name: "My Project"
+#     spring_index: "springs/my-project/my-project_index.md"
+#     content_dir: "springs/my-project/content/"
+#     context_files:
+#       - springs/my-project/my-project_index.md
+#     extra_context_by_keyword:
+#       content:
+#         - intelligence/voice.md
+#
+# ── For Asana users ──────────────────────────────────────────────
+#
+# projects:
+#   my-project:
+#     project_gid: "1234567890"       # Asana project GID
+#     now_section_gid: "0987654321"   # "Now" section GID
+#     spring_index: "springs/my-project/my-project_index.md"
+#     context_files:
+#       - springs/my-project/my-project_index.md
+
+# ── Your projects ────────────────────────────────────────────────
+
+projects: {}

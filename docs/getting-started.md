@@ -8,6 +8,7 @@ From zero to your first working session. No server, no build step, no account.
 
 - **Claude Code** — the Anthropic CLI. Required. Install at [claude.ai/code](https://claude.ai/code).
 - **Git** — for cloning and version control.
+- **jq** — for hook scripts. Install with `brew install jq` (Mac) or `apt install jq` (Linux).
 - **Obsidian** — optional but recommended. If you skip it, any markdown editor works — you just won't have the graph view.
 
 ---

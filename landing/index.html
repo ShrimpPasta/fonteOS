@@ -294,7 +294,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
       <a href="#benefits">Benefits</a>
       <a href="#commands">Commands</a>
       <a href="#integrations">Integrations</a>
-      <a href="https://github.com/ShrimpPasta/fonteos" target="_blank" rel="noopener" class="nav-gh">GitHub</a>
+      <a href="https://github.com/luke-toledo/fonteOS" target="_blank" rel="noopener" class="nav-gh">GitHub</a>
     </div>
   </div>
 </nav>
@@ -306,8 +306,8 @@ footer .container { display: flex; justify-content: space-between; align-items: 
     <h1>Give Claude Code a brain <span class="dim">it keeps between sessions.</span></h1>
     <p class="hero-sub">FonteOS is a <strong>strategy and execution layer</strong> for solo founders and small teams. Persistent memory, project isolation, automated workflows — through markdown files you own, not a service you rent.</p>
     <div class="hero-ctas">
-      <a href="https://github.com/ShrimpPasta/fonteos" class="btn-primary" target="_blank" rel="noopener">Get Started</a>
-      <a href="https://github.com/ShrimpPasta/fonteos/blob/main/docs/getting-started.md" class="btn-secondary" target="_blank" rel="noopener">Read the Docs</a>
+      <a href="https://github.com/luke-toledo/fonteOS" class="btn-primary" target="_blank" rel="noopener">Get Started</a>
+      <a href="https://github.com/luke-toledo/fonteOS/blob/main/docs/getting-started.md" class="btn-secondary" target="_blank" rel="noopener">Read the Docs</a>
     </div>
     <div class="hero-note">No npm. No server. No build step. &nbsp;—&nbsp; Clone, open, /start.</div>
   </div>
@@ -462,9 +462,9 @@ footer .container { display: flex; justify-content: space-between; align-items: 
         <h3>Ships vs. Builds vs. Learns</h3>
         <p>Every task gets labeled by output type. "Ships" go in front of a real human. "Builds" are internal infrastructure. "Learns" is research. The system tracks your ratio — and nudges you when you're building too much and shipping too little.</p>
         <ul>
-          <li>Weekly ship commitment enforced in daily cycle</li>
-          <li>Monday: commit to what ships this week</li>
-          <li>Friday: check if it actually shipped</li>
+          <li>Ship queue tracked — alerts when empty</li>
+          <li>Build:ship ratio monitored across all issues</li>
+          <li>Weekly ship streak tracked — consecutive weeks with 1+ ship</li>
         </ul>
       </div>
 
@@ -533,7 +533,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
           </div>
           <div class="cmd-item">
             <span class="cmd-name">/audit</span>
-            <span class="cmd-desc">Monthly vault health check. Broken links, orphaned notes, stale references, CLAUDE.md drift. Fixes what it can, flags the rest.</span>
+            <span class="cmd-desc">Monthly vault health check. Broken links, orphaned notes, stale references, pattern health. Flags everything, fixes nothing without your approval.</span>
           </div>
           <div class="cmd-item">
             <span class="cmd-name">/patterns</span>
@@ -569,14 +569,14 @@ footer .container { display: flex; justify-content: space-between; align-items: 
             <span class="cmd-desc">Create a new note in the vault with proper frontmatter, wikilinks, and placement. Quick capture without breaking flow.</span>
           </div>
           <div class="cmd-item">
-            <span class="cmd-name">/interview</span>
-            <span class="cmd-desc">Structured interview mode for ambiguous features. Asks the right questions before planning, so you build the right thing.</span>
+            <span class="cmd-name">/d-*</span>
+            <span class="cmd-desc">21 design skills — polish, critique, animate, audit, typeset, and more. Extensible library of design-focused prompts.</span>
           </div>
         </div>
       </div>
     </div>
     <div class="cmd-note reveal">
-      Commands and skills are markdown files in .claude/commands/ and .claude/skills/. Read them, modify them, or write your own. The system is designed to be extended, not consumed.
+      Commands ship with the vault (.claude/commands/) and work immediately. Skills live globally (~/.claude/skills/) and need separate installation. Both are markdown files — read them, modify them, or write your own.
     </div>
   </div>
 </section>
@@ -601,10 +601,10 @@ footer .container { display: flex; justify-content: space-between; align-items: 
         <span class="ready">&check; MCP ready</span>
       </div>
       <div class="integration-card">
-        <div class="integration-card-name">Discord</div>
-        <div class="integration-card-type">Notifications</div>
-        <p>Automated daily cycle reports, agent updates, and system alerts via webhooks. Your operating system reports to where you already live.</p>
-        <span class="ready">&check; Webhook ready</span>
+        <div class="integration-card-name">Google Drive</div>
+        <div class="integration-card-type">Document access</div>
+        <p>Read Sheets and Docs directly into Claude's context. Pull spreadsheet data, shared research, and reference material without copy-paste.</p>
+        <span class="ready">&check; MCP ready</span>
       </div>
       <div class="integration-card">
         <div class="integration-card-name">Perplexity</div>
@@ -735,7 +735,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
       <div class="terminal-body">
         <div class="terminal-line">
           <span class="terminal-prompt">$</span>
-          <span class="terminal-cmd">git clone https://github.com/ShrimpPasta/fonteos.git my-vault</span>
+          <span class="terminal-cmd">git clone https://github.com/luke-toledo/fonteOS.git my-vault</span>
         </div>
         <div class="terminal-out">Cloning into 'my-vault'...</div>
         <div class="terminal-line">
@@ -766,8 +766,8 @@ footer .container { display: flex; justify-content: space-between; align-items: 
       <em>"Fonte" is Portuguese for spring — the source where streams begin.</em>
     </div>
     <div class="footer-right">
-      <a href="https://github.com/ShrimpPasta/fonteos" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/ShrimpPasta/fonteos/blob/main/docs/getting-started.md" target="_blank" rel="noopener">Docs</a>
+      <a href="https://github.com/luke-toledo/fonteOS" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/luke-toledo/fonteOS/blob/main/docs/getting-started.md" target="_blank" rel="noopener">Docs</a>
     </div>
   </div>
 </footer>
