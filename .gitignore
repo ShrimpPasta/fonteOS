@@ -1,6 +1,15 @@
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+
+# Claude Code
+.claude/settings.local.json
+
+# OS
 .DS_Store
-.obsidian/
-*.swp
-*.swo
-*~
+Thumbs.db
+
+# Environment
 .env
+.env.local

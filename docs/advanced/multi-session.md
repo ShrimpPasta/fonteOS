@@ -18,7 +18,7 @@ In practice: open two terminal windows, run `claude` in each, `/start` in each. 
 
 **Core.md is single-writer.** Only one session should propose edits to `source/core.md` at a time. If both sessions want to update core.md in the same work block, do them sequentially. Concurrent edits to the same file = merge conflict.
 
-**Intelligence is single-writer per work block.** Same rule as core.md. Intelligence files are slow-changing by design — they shouldn't need parallel writes. If two sessions both want to update `intelligence/topic.md`, coordinate.
+**Intelligence is single-writer per work block.** Same rule as core.md. Intelligence files are slow-changing by design — they shouldn't need parallel writes. If two sessions both want to update the same intelligence file, coordinate.
 
 **Spring indexes are single-writer.** Each spring's `[name]_index.md` should only be modified by the session scoped to that spring. Session B shouldn't be modifying `springs/product/product_index.md`.
 

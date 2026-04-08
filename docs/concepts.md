@@ -6,7 +6,7 @@ The mental model behind FonteOS. Read this once — it makes everything else obv
 
 ## Source
 
-Source is `core.md`. One file. Read every session. It contains your identity and mission, your strategic priorities, a registry of all your springs and intelligence files, recent shifts across your work, and open decisions. It's the file that makes Claude useful across conversations — without it, you re-explain your context every session.
+Source is `core.md`. One file. Read every session. It contains your identity and mission, your strategic priorities, a registry of all your springs and intelligence files, recent shifts across your work, cross-stream dependencies, and open decisions. It's the file that makes Claude useful across conversations — without it, you re-explain your context every session.
 
 Claude reads Source at every `/start` but never writes to it without your approval. You update it weekly (or when something meaningful shifts). If `core.md` is stale, the whole system drifts. Keep it current.
 
@@ -32,15 +32,19 @@ When a stream is done, it either gets archived or its insights get graduated to 
 
 Intelligence is the library — reference knowledge that's been vetted and promoted from stream work. Intelligence files are slow-changing, confidence-rated (`high / medium / low / speculative`), and loaded on demand when a stream references them. They're not auto-loaded at startup; Claude pulls them when needed.
 
+Intelligence files live in `intelligence/` by default. For larger vaults with many springs, you can use per-spring intelligence folders (`springs/[name]/intel/`) — see [customization.md](customization.md).
+
 Every intelligence file earns its place through the graduate protocol: when a stream insight recurs three or more times across sessions, it gets promoted to a permanent intelligence file. This keeps streams lightweight and intelligence files high-signal. Intelligence files require human approval to create or modify — Claude proposes, you crystallize.
 
 ---
 
 ## Agents
 
-An agent file defines an AI persona for a specific job. It specifies the role, the rules, the intelligence files the agent should load, and any constraints. Examples: a content agent that loads your voice profile before drafting, a researcher that structures Perplexity output into intelligence files, an operations agent that handles routine file maintenance.
+An agent file defines an AI persona for a specific job. It specifies the role, the rules, the intelligence files the agent should load, and any constraints. Examples: a content agent that loads your voice profile before drafting, a researcher that structures output into intelligence files, an operations agent that handles routine file maintenance.
 
 Agents are not auto-loaded. You load an agent file explicitly before delegating that type of work. They're useful when you want consistent behavior across sessions for a specific task type — the agent file encodes the setup so you don't have to re-explain it each time.
+
+**Dual-brain model (optional):** Use a more capable model (Opus) for orchestration and strategic decisions, and a faster model (Sonnet) for file management and routine work. Define this in your agent files.
 
 ---
 
@@ -54,9 +58,23 @@ Inbox items older than two weeks show up in `/audit` as stale. Don't use inbox a
 
 ## The two control files
 
-**`CLAUDE.md`** is Claude's instruction file. It lives at the vault root and is loaded automatically at the start of every session. It defines how Claude behaves: session startup protocol, write permissions, standing rules, vault navigation. You edit it when you want to change Claude's behavior — but treat it as infrastructure. Casual edits break things. Claude is never permitted to modify it.
+**`CLAUDE.md`** is Claude's instruction file. It lives at the vault root and is loaded automatically at the start of every session. It defines how Claude behaves: session startup protocol, write permissions, standing rules, vault navigation, pattern monitoring, and the NH protocol. You edit it when you want to change Claude's behavior — but treat it as infrastructure. Casual edits break things. Claude is never permitted to modify it.
 
 **`source/core.md`** is your file. It defines what you're building and what matters. Claude reads it but treats edits as requiring human approval. The two files together answer: "How should Claude work?" (CLAUDE.md) and "What is Claude working on?" (core.md).
+
+---
+
+## Ships, Builds, and Learns
+
+Every task gets classified into one of three types:
+
+| Type | What it means |
+|------|---------------|
+| **Ships** | Market-facing output — goes in front of real humans who aren't you. Posts, landing pages, emails, products. |
+| **Builds** | Internal infrastructure — systems, tooling, research, setup. Necessary but doesn't generate market contact. |
+| **Learns** | Research, skill acquisition, exploration. Feeds future ships and builds. |
+
+The ship queue should never be empty. If it is, the infrastructure-as-avoidance pattern is likely active. The `/patterns` command tracks this automatically.
 
 ---
 
@@ -94,8 +112,21 @@ This is how knowledge accumulates without bloat. Streams stay lightweight. Intel
 
 ---
 
+## NH (Needs Human) protocol
+
+Some decisions require human judgment. Mark them with `[NH]` in any file — task descriptions, stream notes, plan documents. When Claude encounters `[NH]`:
+
+1. It completes all surrounding autonomous work
+2. Surfaces a structured decision package (options, trade-offs, recommendation)
+3. Waits for the human to decide
+4. Resumes after the decision
+
+NH is not a blocker on unrelated work. If one thread hits an NH, work continues on other threads.
+
+---
+
 ## Token efficiency
 
-The vault structure exists to keep Claude's loaded context small. At `/start`, Claude loads `core.md` and `session-state.md` — roughly 1-2k tokens. When you pick a project, it loads the spring index and relevant stream files — another 2-3k. Intelligence files load only when referenced. Total active context: around 5k tokens, with 90%+ of the context window free for actual work.
+The vault structure exists to keep Claude's loaded context small. At `/start`, Claude loads `core.md`, `session-state.md`, and `pattern-reference.md` — roughly 2-3k tokens. When you pick a project, it loads the spring index and relevant stream files — another 2-3k. Intelligence files load only when referenced. Total active context: around 5k tokens, with 90%+ of the context window free for actual work.
 
-The alternative — stuffing all your context into a system prompt, or loading every file every session — burns tokens and degrades output quality. MCP integrations follow the same principle: external data (tasks, research, design files, documents) stays external and gets fetched on demand rather than pre-loaded into the prompt. The system is architecturally lazy about context loading, and that's the point.
+MCP integrations follow the same principle: external data (tasks, research, design files, documents) stays external and gets fetched on demand. The system is architecturally lazy about context loading, and that's the point.

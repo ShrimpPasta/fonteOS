@@ -37,9 +37,9 @@ updated:
 
 ## Spring registry
 
-| Spring | Scope | Status |
-|--------|-------|--------|
-| | | |
+| Spring | Scope | Status | Priority |
+|--------|-------|--------|----------|
+| | | | |
 
 ---
 
@@ -49,6 +49,24 @@ updated:
 |------|------------|-------|
 | | | |
 
+**Confidence levels:** High = research-backed and validated. Medium = informed hypothesis. Low = early exploration. Speculative = untested.
+
+---
+
+## Agent registry
+
+| Agent | Model | Role |
+|-------|-------|------|
+| | | |
+
+---
+
+## Cross-stream dependencies
+
+| Dependency | From | To | Notes |
+|------------|------|----|-------|
+| | | | |
+
 ---
 
 ## Open decisions
@@ -56,3 +74,19 @@ updated:
 | Decision | Affects | Status |
 |----------|---------|--------|
 | | | |
+
+---
+
+## Supporting files
+
+- [[session-state]] — session continuity across work blocks (read at /start, written at /end)
+- [[pattern-reference]] — pattern-breaking flags, session protocol, health metrics
+- [[pm-reference]] — task manager integration details
+
+---
+
+## Changelog
+
+| Date | Change |
+|------|--------|
+| | |

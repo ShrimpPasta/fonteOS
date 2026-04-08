@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability in FonteOS, please report it responsibly using GitHub's private vulnerability reporting:
 
-**[Report a vulnerability](https://github.com/ShrimpPasta/fonteos/security/advisories/new)**
+**[Report a vulnerability](https://github.com/luke-toledo/fonteOS/security/advisories/new)**
 
 Do not open a public issue for security vulnerabilities.
 

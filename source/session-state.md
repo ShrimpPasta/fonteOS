@@ -14,7 +14,8 @@ updated:
 - **Changed:** —
 - **Open tasks:** —
 - **Blockers:** —
-
-## Next session priority
-
-—
+- **Next session priority:** —
+- **Deliverable declared:** —
+- **Deliverable actual:** —
+- **Type:** —
+- **Drift:** —
