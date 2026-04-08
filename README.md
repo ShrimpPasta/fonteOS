@@ -1,43 +1,76 @@
-# FonteOS
+<p align="center">
+  <img src="https://fonteos.com/og-image.png" alt="FonteOS" width="600">
+</p>
 
-**A strategy and execution layer for solo founders and small teams using Claude Code.**
+<h1 align="center">FonteOS</h1>
 
-FonteOS gives Claude Code persistent memory, project awareness, and session continuity. It's a vault structure + behavioral rules — no server, no database, no build step. Clone it, open it, `/start`.
+<p align="center">
+  <strong>A strategy and execution layer for solo founders and small teams using Claude Code.</strong>
+</p>
+
+<p align="center">
+  <a href="https://fonteos.com">Website</a> &middot;
+  <a href="#quickstart">Quickstart</a> &middot;
+  <a href="docs/getting-started.md">Docs</a> &middot;
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+  </a>
+</p>
 
 ---
 
-## What it solves
+FonteOS gives Claude Code **persistent memory**, **project isolation**, and **session continuity**. It's a vault structure + behavioral rules — no server, no database, no build step. Clone it, open it, `/start`.
 
-- You re-explain your context every Claude session
-- You lose decisions, research, and progress between conversations
-- You burn tokens re-loading context that should already be there
-- Your projects bleed into each other with no isolation
-- You have no structure connecting strategy (what to build) to execution (what to do next)
+> *"Fonte" is Portuguese for spring — the source where streams begin.*
+
+---
+
+## The problem
+
+Every Claude Code session starts from zero. You re-explain your context, lose decisions between conversations, burn tokens re-loading what should already be there, and watch projects bleed into each other with no isolation. There's no structure connecting **what to build** to **what to do next**.
+
+FonteOS fixes this with two files and six folders.
+
+---
 
 ## How it works
 
 **Two control files:**
-- `CLAUDE.md` — behavioral rules Claude reads automatically. Session protocol, write permissions, standing rules.
-- `source/core.md` — your operating context. Mission, priorities, project registry. Claude reads it, knows your world.
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Behavioral rules Claude reads automatically — session protocol, write permissions, standing rules |
+| `source/core.md` | Your operating context — mission, priorities, project registry. Claude reads it and knows your world |
 
 **Six-layer vault:**
-- **Source** — mission, priorities, registries (updated weekly)
-- **Springs** — projects/ventures, each with their own index
-- **Streams** — active workstreams within a spring (where daily work happens)
-- **Intelligence** — research-backed reference knowledge (graduated from streams)
-- **Agents** — AI agent role definitions
-- **Inbox** — loose ideas, triaged weekly
+
+```
+┌─────────────────────────────────────────────────────┐
+│  SOURCE        Mission, priorities, registries       │
+├─────────────────────────────────────────────────────┤
+│  SPRINGS       Projects/ventures, each with an index │
+├─────────────────────────────────────────────────────┤
+│  STREAMS       Active workstreams (daily work here)  │
+├─────────────────────────────────────────────────────┤
+│  INTELLIGENCE  Research-backed reference knowledge   │
+├─────────────────────────────────────────────────────┤
+│  AGENTS        AI agent role definitions             │
+├─────────────────────────────────────────────────────┤
+│  INBOX         Loose ideas, triaged weekly           │
+└─────────────────────────────────────────────────────┘
+```
 
 **Session lifecycle:**
+
 ```
-/start → Claude loads your context, suggests work, scopes to a project
-  ↓
-work → Claude reads/writes within the scoped project, fetches external data via MCP
-  ↓
-/end → summarize, upstream insights to permanent files, save state for next session
+/start → load context, suggest work, scope to a project
+   ↓
+ work  → read/write within scope, fetch live data via MCP
+   ↓
+ /end  → summarize, upstream insights, save state for next session
 ```
 
-**Token-efficient by design.** The vault structure means Claude loads ~5k tokens of context, not your entire life. MCP integrations fetch live data from your task manager, docs, and research tools on demand — external data stays external until needed.
+**Token-efficient by design.** ~5k tokens of loaded context, not your entire life. MCP integrations pull live data on demand — external data stays external until needed.
 
 ---
 
@@ -46,13 +79,13 @@ work → Claude reads/writes within the scoped project, fetches external data vi
 ### 1. Clone
 
 ```bash
-git clone https://github.com/ShrimpPasta/fonteos.git my-vault
+git clone https://github.com/luke-toledo/fonteOS.git my-vault
 cd my-vault
 ```
 
 ### 2. Open in Obsidian
 
-Open the cloned folder as an Obsidian vault. (If you don't use Obsidian, any markdown editor works — you'll just miss the graph view.)
+Open the folder as an Obsidian vault. Any markdown editor works — Obsidian gives you the graph view.
 
 ### 3. Start Claude Code
 
@@ -67,12 +100,12 @@ claude
 ```
 
 On first run, Claude detects an empty `core.md` and walks you through setup:
-- Who you are and what you're building
-- Your top priorities
-- Which task manager to connect (Asana, Linear, or none)
-- Creates your first project from priority #1
 
-After setup, every future `/start` loads your context instantly.
+- **Who you are** and what you're building
+- **Your top priorities** right now
+- **Task manager** preference — Linear, Asana, or vault-only
+
+After setup, every `/start` loads your full context instantly.
 
 ---
 
@@ -97,10 +130,10 @@ my-vault/
 │   └── .gitkeep
 └── .claude/
     └── commands/
-        ├── start.md
-        ├── end.md
-        ├── audit.md
-        └── note.md
+        ├── start.md                   ← Session open
+        ├── end.md                     ← Session close
+        ├── audit.md                   ← Monthly maintenance
+        └── note.md                    ← Quick note creation
 ```
 
 ---
@@ -110,12 +143,47 @@ my-vault/
 | Concept | What it means |
 |---------|---------------|
 | **Source** | `core.md` — your mission, priorities, and project registry |
-| **Spring** | A project or venture. Has an index and streams. |
-| **Stream** | Active work within a spring. Claude writes here freely. |
-| **Intelligence** | Research-backed reference. Slow-changing, confidence-rated. |
-| **Upstream** | Codify session output into a permanent file. |
-| **Dispose** | Close a session without extracting anything. |
-| **Graduate** | Promote a recurring stream insight to Intelligence. |
+| **Spring** | A project or venture. Has an index and streams |
+| **Stream** | Active work within a spring. Claude writes here freely |
+| **Intelligence** | Research-backed reference. Slow-changing, confidence-rated |
+| **Upstream** | Codify session output into a permanent file |
+| **Dispose** | Close a session without extracting anything |
+| **Graduate** | Promote a recurring stream insight to Intelligence |
+
+---
+
+## ADHD guardrails
+
+FonteOS was built by someone with ADHD, for people who work like that. Every session has built-in structure:
+
+- **Ships / Builds / Learns** — every task gets a type so you always know if you're shipping to market, building infrastructure, or doing research
+- **Session deliverables** — declare what "done" looks like before starting, not after
+- **Pattern monitoring** — watches for scope creep, prerequisite chains, and building-without-shipping in real time
+- **Spring isolation** — forces single-project focus per session. Cross-project edits require explicit approval
+
+---
+
+## Commands & skills
+
+### Commands (built-in)
+
+| Command | What it does |
+|---------|-------------|
+| `/start` | Load context, suggest work, scope to a project |
+| `/end` | Summarize session, upstream or dispose, save state |
+| `/audit` | Monthly maintenance — orphans, stale streams, drift |
+| `/note` | Create a new note with structure and wikilinks |
+
+### Skills (extensible)
+
+Skills are reusable prompt files in `~/.claude/skills/`. FonteOS ships lean — add what you need:
+
+| Skill pattern | Examples |
+|---------------|----------|
+| `d-*` | Design skills — `d-polish`, `d-critique`, `d-animate`, `d-audit` |
+| Research | `perplexity`, `youtube`, `mark` |
+| Content | `story-edit`, `humanize` |
+| System | `review`, `patterns`, `cycle` |
 
 ---
 
@@ -123,73 +191,67 @@ my-vault/
 
 | Layer | Claude can write? | Notes |
 |-------|-------------------|-------|
-| Streams | Yes | Daily work, drafts |
-| Inbox | Yes | Catching ideas |
-| Session state | Yes | Auto-written at /end |
+| Streams | **Yes** | Daily work, drafts |
+| Inbox | **Yes** | Catching ideas |
+| Session state | **Yes** | Auto-written at `/end` |
 | Spring indexes | Propose only | Human approves |
 | Intelligence | Propose only | Human approves |
-| Source (core.md) | Propose only | Human approves |
-| CLAUDE.md | Never | Human-only |
+| Source | Propose only | Human approves |
+| CLAUDE.md | **Never** | Human-only |
 
 ---
 
-## Optional integrations (MCP)
+## Integrations (MCP)
 
-FonteOS works standalone, but gets more powerful with MCP integrations:
+FonteOS works standalone, but gets powerful with MCP servers:
 
 | Integration | What it does |
 |-------------|-------------|
-| **Asana / Linear** | Pull tasks at /start, update at /end, daily cycle automation |
+| **Linear / Asana** | Pull tasks at `/start`, update at `/end`, daily cycle automation |
 | **Perplexity** | Deep research without leaving the terminal |
-| **Gemini** | YouTube video extraction, document analysis |
+| **Gemini** | YouTube extraction, document analysis, vision |
 | **Google Drive** | Read spreadsheets and docs as intelligence sources |
-| **Figma** | Read design files and extract design tokens |
+| **Figma** | Read designs, extract tokens, generate components |
+| **Google Calendar** | Schedule-aware planning and time blocking |
 
-See [docs/mcp-integrations.md](docs/mcp-integrations.md) for setup guides.
-
----
-
-## Commands
-
-| Command | What it does |
-|---------|-------------|
-| `/start` | Load context, suggest work, scope to a project |
-| `/end` | Summarize session, upstream or dispose, save state |
-| `/audit` | Monthly maintenance — find orphans, stale streams, drift |
-| `/note` | Create a new note with proper structure and wikilinks |
+See [docs/mcp-integrations.md](docs/mcp-integrations.md) for setup.
 
 ---
 
 ## What it's NOT
 
-- **Not a chatbot.** It's a working context for Claude Code.
-- **Not a RAG pipeline.** No vectors, no embeddings. Just markdown files loaded strategically.
-- **Not a SaaS.** No server, no account, no subscription.
-- **Not an installer.** It's a file structure. Clone and go.
+| | |
+|---|---|
+| **Not a chatbot** | It's a working context for Claude Code |
+| **Not a RAG pipeline** | No vectors, no embeddings — just markdown files loaded strategically |
+| **Not a SaaS** | No server, no account, no subscription |
+| **Not an installer** | It's a file structure — clone and go |
 
 ---
 
 ## Documentation
 
-- [Getting Started](docs/getting-started.md)
-- [Core Concepts](docs/concepts.md)
-- [Session Lifecycle](docs/session-lifecycle.md)
-- [Customization](docs/customization.md)
-- [MCP Integrations](docs/mcp-integrations.md)
-- [Voice Profiles](docs/voice-profiles.md)
-- [Advanced: Multi-session Work](docs/advanced/multi-session.md)
-- [Advanced: Daily Cycle Automation](docs/advanced/daily-cycle.md)
+| Doc | What it covers |
+|-----|---------------|
+| [Getting Started](docs/getting-started.md) | Full setup walkthrough |
+| [Core Concepts](docs/concepts.md) | Springs, streams, intelligence, upstream |
+| [Session Lifecycle](docs/session-lifecycle.md) | `/start` → work → `/end` in detail |
+| [Customization](docs/customization.md) | Making it yours |
+| [MCP Integrations](docs/mcp-integrations.md) | Connecting external tools |
+| [Voice Profiles](docs/voice-profiles.md) | Teaching Claude your writing style |
+| [Multi-session Work](docs/advanced/multi-session.md) | Spring isolation and cross-over |
+| [Daily Cycle Automation](docs/advanced/daily-cycle.md) | Automated agent runs |
 
 ---
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
 ---
 
 ## Credits
 
-Built by [Luke](https://x.com/) in Lisbon. Born from running multiple ventures with Claude Code and needing a system that doesn't forget.
+Built by [Luke Toledo](https://x.com/lukeSVG) in Lisbon.
 
-*"Fonte" is Portuguese for spring — the source where streams begin.*
+Born from running multiple ventures with Claude Code and needing a system that doesn't forget.
